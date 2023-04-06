@@ -71,7 +71,9 @@ public class AplicacionCliente {
 	public void mostrarMenu()
 	{
 		System.out.println("\nOpciones de la aplicación\n");
-		System.out.println("1. Realizar una reserva");
+		System.out.println("\nPara reservar necesitas primero ingresar tus datos\n");
+		System.out.println("1. Ingresar Datos");
+		System.out.println("2. Realizar una reserva");
 		System.out.println("2. Solicitar catalogo de servicios");
 		System.out.println("3. Solicitar servicio");
 		System.out.println("4. Mostrar el menu del Restaurante");
