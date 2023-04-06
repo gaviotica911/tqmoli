@@ -79,14 +79,15 @@ public class FuncionesEmpleado {
 	                     idsDisponibles.add(habitacion.getId());
 	                 }
 	             }
-
+/*
 	             if (idsDisponibles.size() < cantidad) {
 	                 // No hay suficientes habitaciones disponibles para esta fecha y tipo
 	                 return new ArrayList<String>();
 	             }
-
+*/
 	             // Reservar habitaciones disponibles
 	             for (int k = 0; k < cantidad; k++) {
+	            	 
 	                 String id = idsDisponibles.get(k);
 	                 idsReservados.add(id);
 	                 inventario.get(id).add(fecha);

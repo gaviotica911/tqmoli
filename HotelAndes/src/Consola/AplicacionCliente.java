@@ -1,6 +1,7 @@
 package Consola;
 import Logica.CargardorArchivo;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -22,7 +23,7 @@ public class AplicacionCliente {
 	 
 	// public HashMap<HuespedReserva, Reserva> reservas = new  HashMap<HuespedReserva, Reserva>();
 	
-	public void ejecutarAplicacion()
+	public void ejecutarAplicacion() throws IOException
 	{
 		System.out.println("Bienvenido querido Usuario. \n");
 
@@ -100,7 +101,7 @@ public class AplicacionCliente {
 			  
 		}
 	}
-	public void reservar()
+	public void reservar() throws IOException
 	{
 	
 	  String nombre=input("Ingrese su nombre completo: "); 
@@ -116,8 +117,10 @@ public class AplicacionCliente {
 		}
 		else {
 			FuncionesEmpleado empleado= new FuncionesEmpleado();
-			empleado.reserva(huesped1, Fecha_llegada,  Fecha_salida, cantidadDeAcompañantes, habitacionies);
-			
+			File archivoHabitaciones= new File ("./data/habitacion.txt");
+			catalogo.cargarHabitacion(archivoHabitaciones);
+			ArrayList<String> xd=empleado.reserva(huesped1, Fecha_llegada,  Fecha_salida, cantidadDeAcompañantes, habitacionies);
+			System.out.println(xd);
 			
 			
 		}
@@ -131,7 +134,7 @@ public class AplicacionCliente {
 	// TODO EL RESTO DEL MENUUUU!!!!!!!!!!!!!!!
 	
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		AplicacionCliente consola = new AplicacionCliente();
 		consola.ejecutarAplicacion();
