@@ -106,8 +106,8 @@ public class AplicacionCliente {
 	  String nombre=input("Ingrese su nombre completo: "); 
 	  HashMap<String, ArrayList<Habitacion>> habitacionies= catalogo.getHabitacionesID();
 	  int cantidadDeAcompañantes= Integer.parseInt(input("Ingrese la cantidad de personas que van al viaje (incluyendolo a usted)"));
-	  Date Fecha_llegada= formatearHora(input("Ingrese la fecha de llegada en el formato dd/MM: "), "dd/MM");
-	  Date Fecha_salida= formatearHora(input("Ingrese la fecha de Salida en el formato dd/MM: "), "dd/MM");
+	  Date Fecha_llegada= formatearHora(input("Ingrese la fecha de llegada en el formato dd/MM/yy: "), "dd/MM/yy");
+	  Date Fecha_salida= formatearHora(input("Ingrese la fecha de Salida en el formato dd/MM/yy: "), "dd/MM/yy");
 	  HuespedReserva huesped1= huespedes.get(nombre);
 		if (huesped1 == null)
 		{
@@ -131,11 +131,11 @@ public class AplicacionCliente {
 	// TODO EL RESTO DEL MENUUUU!!!!!!!!!!!!!!!
 	
 	
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
-		ConsolaOlimpicos consola = new ConsolaOlimpicos();
+		AplicacionCliente consola = new AplicacionCliente();
 		consola.ejecutarAplicacion();
-	}*/
+	}
 	
 	public String input(String mensaje)
 	{

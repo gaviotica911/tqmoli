@@ -36,7 +36,7 @@ public class FuncionesEmpleado {
 	     Calendar calendar = Calendar.getInstance();
 	     calendar.setTime(Fecha_llegada);
 
-	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 	     while (calendar.getTime().before(Fecha_salida) || calendar.getTime().equals(Fecha_salida)) {
 	         Date fechaActual = calendar.getTime();
 	         String x =sdf.format(fechaActual);
