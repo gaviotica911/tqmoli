@@ -1,0 +1,10 @@
+producto;precio;tiempo;habitación
+Jugo;4000;desayuno;False
+Cafe;5000;desayuno;False
+AguaConGas;3000;desayuno,almuerzo,comida;True
+Gaseosa;6000;almuerzo,comida;True
+AguaNatural;2000;desayuno,almuerzo,comida;True
+Cerveza;7000;comida;False
+PiñaColada;8000;comida;False
+Redbull;7000;desayuno,almuerzo,comida;True
+Gatorade;4000;desayuno,almuerzo,comida;True

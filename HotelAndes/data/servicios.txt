@@ -1,0 +1,14 @@
+nombre;ubicacion;precio;diasDisponible;horarioDisponible
+guiaPorLaIsla;isla;4563370;viernes,sabado,domingo;diurno
+guiaPorElMar;mar;63200;viernes,sabado,domingo;diurno
+Snorker;oceano;345600;viernes,sabado,domingo;diurno
+Canoa;playa;43002;viernes,sabado,domingo;diurno
+Safari;hotel;54300;viernes,sabado,domingo;diurno
+NadoConDelfines;acuario;3580;viernes,sabado,domingo,lunes,miercoles;diurno
+cityTourHistorico;ciudad;4820;viernes,sabado,domingo,martes,juves;diurno
+chivaRumbera;ciudad;6420;viernes,sabado;nocturno
+masajeEnLaPlaya;playa;65301;viernes,sabado,domingo;diurno
+masajeEnChocolate;hotel;7320;viernes,sabado,domingo;diurno
+spaConJacussi;jacussi;64700;lunes,viernes,sabado,domingo;diurno
+masajePiedrasVolcanicas;volcan;88802;viernes,sabado,domingo,miercoles,jueves;diurno
+masajeAfrodisiaco;cuartoUWU;345600;viernes,sabado,domingo;nocturno

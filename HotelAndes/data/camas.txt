@@ -1,0 +1,6 @@
+tamano; uso; numeroNinos; numeroAdultos
+King; adulto;0;3
+Queen; adulto y nino;1;2
+Doble; adulto;0;2
+Sencilla; adulto;0;1
+Ninos; nino;1;0

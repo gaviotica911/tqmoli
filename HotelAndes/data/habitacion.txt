@@ -1,0 +1,51 @@
+id;ubicaciÛn;capacidad;camas;precioFijo;vista;balcon;cocina;tipo
+1;primerPiso;2;Queen;100000;true;false;false;estandar
+2;primerPiso;2;Doble;100000;false;true;true;estandar
+3;primerPiso;4;Queen,Doble;200000;true;false;false;suiteDoble
+4;primerPiso;2;Doble;100000;false;true;true;estandar
+5;primerPiso;2;Sencilla,Sencilla;100000;true;false;true;estandar
+6;primerPiso;3;Doble,Sencilla;150000;false;true;false;suite 
+7;primerPiso;2;Queen;100000;true;false;false;estandar
+8;primerPiso;2;Doble;100000;false;false;true;estandar
+9;primerPiso;2;Doble;100000;false;false;false;estandar
+10;primerPiso;4;King,Sencilla;200000;true;true;true;suiteDoble
+11;segundoPiso;2;Sencilla,Ni¬§os;100000;false;false;true;estandar
+12;segundoPiso;2;Queen;100000;true;true;true;estandar
+13;segundoPiso;4;Doble, Doble;200000;false;false;true;suiteDoble
+14;segundoPiso;2;Queen;100000;false;true;false;estandar
+15;segundoPiso;2;Queen;100000;true;false;true;estandar
+16;segundoPiso;2;Sencilla,Ni¬§os;100000;false;true;false;estandar
+17;segundoPiso;2;Queen;100000;false;true;true;estandar
+18;segundoPiso;2;Doble;100000;true;false;false;estandar
+19;segundoPiso;4;Doble,Doble;200000;false;false;true;suiteDoble
+20;tercerPiso;2;Queen;100000;true;true;false;estandar
+21;tercerPiso;2;Sencilla,Sencilla;100000;false;true;true;estandar
+22;tercerPiso;2;Doble;100000;true;false;true;estandar
+23;tercerPiso;3;Sencilla,Queen;150000;false;false;false;suite 
+24;tercerPiso;2;Sencilla,Ni¬§os;100000;true;false;true;estandar
+25;tercerPiso;2;Doble;100000;false;true;false;estandar
+26;tercerPiso;4;Doble,Sencilla,Sencilla;200000;false;true;true;suiteDoble
+27;tercerPiso;2;QUeen;100000;true;false;false;estandar
+28;tercerPiso;2;Doble;100000;true;true;false;estandar
+29;tercerPiso;2;Sencilla,Sencilla;100000;false;true;true;estandar
+30;cuartoPiso;2;Doble;100000;false;false;true;estandar
+31;cuartoPiso;3;Queen,Sencilla;150000;false;false;false;suite 
+32;cuartoPiso;2;Doble;100000;true;false;true;estandar
+33;cuartoPiso;4;Doble, Doble;200000;true;true;false;suiteDoble
+34;cuartoPiso;3;King;150000;false;false;false;suite 
+35;cuartoPiso;2;Queen;100000;true;true;false;estandar
+36;cuartoPiso;4;Doble,Sencilla,Ni¬§os;200000;false;false;true;suiteDoble
+37;cuartoPiso;2;Queen;100000;true;true;true;estandar
+38;cuartoPiso;2;Doble;100000;false;false;false;estandar
+39;cuartoPiso;3;King, Sencilla;150000;true;true;true;suite 
+40;quintoPiso;2;King, Sencilla;100000;true;false;false;estandar
+41;quintoPiso;2;Doble, Queen;100000;false;false;true;estandar
+42;quintoPiso;2;Queen;100000;false;true;true;estandar
+43;quintoPiso;3;Queen,Sencilla;150000;false;false;false;suite 
+44;quintoPiso;3;King;150000;true;true;true;suite 
+45;quintoPiso;3;Doble,Ni¬§os;150000;true;false;false;suite 
+46;terraza;4;Queen,Doble;200000;false;true;true;suiteDoble
+47;terraza;3;Queen;150000;false;false;true;suite 
+48;terraza;3;Queen,Sencilla;150000;true;false;false;suite 
+49;terraza;4;King, Sencilla;200000;true;true;true;suiteDoble
+50;terraza;3;Doble,Sencilla;150000;false;false;true;suite 
