@@ -287,12 +287,12 @@ public class CargardorArchivo {
 			Habitacion laHabitacion= habitacionies.get(id);
 			if (laHabitacion == null)
 			{
-				laHabitacion= new Habitacion( id,  capacidad, camasCuarto,  ubicacion,  tipo,  precioFijo, vista,  balcon,  cocina);
+			 laHabitacion= new Habitacion( id,  capacidad, camasCuarto,  ubicacion,  tipo,  precioFijo, vista,  balcon,  cocina);
 				habitacionies.put(id, laHabitacion);
 	
-				if(tipo=="estandar") {estandar.add(laHabitacion);}
-				if(tipo=="suite") {suite.add(laHabitacion);}
-				if(tipo=="suiteDoble") {suiteDoble.add(laHabitacion);}
+				if(tipo.equals("estandar")) {estandar.add(laHabitacion);}
+				if(tipo.equals("suite")) {suite.add(laHabitacion);}
+				if(tipo.equals("suiteDoble")) {suiteDoble.add(laHabitacion);}
 				
 				//ArrayList <HashMap<String, ArrayList<Habitacion>>> Mirar si organizar eso por esta estructura
 				

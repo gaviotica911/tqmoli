@@ -67,7 +67,8 @@ public class FuncionesEmpleado {
 	                     break;
 	             }
 
-	             ArrayList<Habitacion> habitaciones = catalogo.get(tipoHabitacion);
+	             ArrayList<Habitacion> habitaciones = catalogo.get("estandar");
+	             System.out.println(catalogo);
 	             ArrayList<String> idsDisponibles = new ArrayList<String>();
 
 	             for (Habitacion habitacion : habitaciones) {
