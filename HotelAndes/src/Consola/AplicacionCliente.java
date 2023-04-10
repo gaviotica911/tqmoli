@@ -1,4 +1,5 @@
 package Consola;
+import Logica.Bebida;
 import Logica.CargardorArchivo;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,20 +12,26 @@ import java.util.Date;
 import java.util.HashMap;
 
 import Logica.Reserva;
+import Logica.Servicio;
 import Logica.FuncionesEmpleado;
 import Logica.Habitacion;
 import Logica.HuespedReserva;
+import Logica.Plato;
 
 
 public class AplicacionCliente {
 	 public HashMap<String, HuespedReserva> huespedes = new  HashMap<String, HuespedReserva>();
 	 public CargardorArchivo catalogo= new CargardorArchivo ();
+	 public CargardorArchivo cargador= new CargardorArchivo(); 
 	 
 	 
 	// public HashMap<HuespedReserva, Reserva> reservas = new  HashMap<HuespedReserva, Reserva>();
 	
 	public void ejecutarAplicacion() throws IOException
 	{
+		
+		
+		
 		System.out.println("Bienvenido querido Usuario. \n");
 
 		boolean continuar = true;
@@ -39,22 +46,22 @@ public class AplicacionCliente {
 				else if (opcion_seleccionada == 2)
 					{reservar();}
 				else if (opcion_seleccionada == 3 )
-				{//TODO
-					}
+				{mostrarCatalogo();}
 				
 				else if (opcion_seleccionada == 4 )
-				{//TODO
+				{mostrarMenuRestaurante();
 					
 				}
 				else if (opcion_seleccionada == 5 )
-				{//TODO
+				{
 					
 				}
 				
 				else if (opcion_seleccionada == 6)
 				{
 					System.out.println("Saliendo de la aplicación ...");
-					continuar = false;
+					 AplicacionPrincipal appp= new AplicacionPrincipal();
+					appp.ejecutarAplicacion();
 				}
 				
 				else
@@ -75,10 +82,10 @@ public class AplicacionCliente {
 		System.out.println("\nPara reservar necesitas primero ingresar tus datos\n");
 		System.out.println("1. Ingresar Datos");
 		System.out.println("2. Realizar una reserva");
-		System.out.println("2. Solicitar catalogo de servicios");
-		System.out.println("3. Solicitar servicio");
+		System.out.println("3. Solicitar catalogo de servicios");
 		System.out.println("4. Mostrar el menu del Restaurante");
-		System.out.println("5. Salir");
+		System.out.println("5. Solicitar servicio");
+		System.out.println("6. CerrarSesion");
 		
 	}
 	public void ingresarDatos(){
@@ -100,6 +107,52 @@ public class AplicacionCliente {
 			  
 			  
 		}
+	}
+	
+	
+	public void solicitarServicio()
+	{
+		
+	}
+	public void mostrarCatalogo() {
+		System.out.println("Los servicios dispoibles son: ");
+		;
+		HashMap<String,Servicio> servicios=cargador.getServicios();
+		int cont=1;
+		for(String i: servicios.keySet() ) {
+			Servicio c = servicios.get(i);
+		//nombre;ubicacion;precio;diasDisponible;horarioDisponible
+
+        	System.out.println(cont+ ". " + c.getNombre() +  ", precio: "+c.getPrecioTotal()+", tiempo: "+ c.getHorariosDeDisponibilidad() + ", ubicacion: " + c.getUbicacion());
+		}
+	}
+	public void mostrarMenuRestaurante(){
+		System.out.println("BEBIDAS");
+		HashMap<String,Bebida> bebidas= cargador.getBebidas();
+		int cont=1;
+		for(String i: bebidas.keySet() ) {
+			Bebida c = bebidas.get(i);
+			
+        	System.out.println(cont+". " + c.getNombre() +  ", precio: "+c.getPrecioTotal()+", tiempo: "+ c.getHorariosDeDisponibilidad() + ", habitación: "+ c.isLlevable());
+        }
+        System.out.println("\n");
+        
+        System.out.println("PLATOS");
+		HashMap<String,Plato> platos= cargador.getPlatos();
+		cont=1;
+		for(String i: platos.keySet() ) {
+			Plato p = platos.get(i);
+		//producto;precio;tiempo;habitación
+
+        	System.out.println(cont+". " +  p.getNombre() +  ", precio: "+p.getPrecioTotal()+", tiempo: "+ p.getHorariosDeDisponibilidad() + ", habitación: "+ p.isLlevable());
+        }
+        System.out.println("\n");
+        
+        
+        
+		
+		
+		
 	}
 	public void reservar() throws IOException
 	{

@@ -5,8 +5,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Logica.CargardorArchivo;
+
 public class  AplicacionPrincipal {
 	Hotel hotel= new Hotel();
+	
 	
 	
 	 

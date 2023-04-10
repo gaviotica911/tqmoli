@@ -46,6 +46,14 @@ public class CargardorArchivo {
 	
 	
 	
+	public HashMap<String, Servicio> getServicios() {
+		return servicios;
+	}
+
+
+
+
+
 	public HashMap<String, Cama> getCamas() {
 		return camas;
 	}
