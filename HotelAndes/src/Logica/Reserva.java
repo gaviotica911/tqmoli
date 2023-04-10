@@ -12,6 +12,7 @@ public class Reserva {
 	private int numeroDeHabitaciones;
 	private float montoTotal;
 	private boolean estado;
+	//holaaa
 	
 	
 	
