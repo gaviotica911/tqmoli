@@ -226,3 +226,4 @@ public class AplicacionCliente {
 
 }
 }
+//dios mio por favor que sirva , desde visual 
