@@ -16,15 +16,19 @@ import Logica.Servicio;
 import Logica.FuncionesEmpleado;
 import Logica.Habitacion;
 import Logica.HuespedReserva;
+import Logica.Inventario;
 import Logica.Plato;
 
-
 public class AplicacionCliente {
-	 public HashMap<String, HuespedReserva> huespedes = new  HashMap<String, HuespedReserva>();
-	 
-	 public CargardorArchivo cargador= new CargardorArchivo(); 
-	 public ArrayList<String> usuariosCheckIn= new ArrayList<String> ();
-	 FuncionesEmpleado empleado= new FuncionesEmpleado();
+	public HashMap<String, HuespedReserva> huespedes = new HashMap<String, HuespedReserva>();
+	public HashMap<String, Reserva> reservas = new HashMap<String, Reserva>();
+	public CargardorArchivo catalogo = new CargardorArchivo();
+	public CargardorArchivo cargador = new CargardorArchivo();
+	public ArrayList<String> usuariosCheckIn= new ArrayList<String> ();
+	FuncionesEmpleado empleado= new FuncionesEmpleado();
+	Inventario inventarioInstancia = new Inventario();
+	HashMap<String, ArrayList<Date>> inventario= inventarioInstancia.getInventario();
+	
 	 
 	// public HashMap<HuespedReserva, Reserva> reservas = new  HashMap<HuespedReserva, Reserva>();
 	
@@ -123,6 +127,8 @@ public class AplicacionCliente {
 			if(rta != null)
 			{
 			rta.put("nombre",nombre);
+			rta.put("reserva", reservas.get(nombre));
+			
 			empleado.cargarConsumo(rta);
 			
 			}
@@ -195,34 +201,57 @@ public class AplicacionCliente {
 		
 		
 	}
-	public void reservar() throws IOException
-	{
-	
-	  String nombre=input("Ingrese su nombre completo: "); 
-	  HashMap<String, ArrayList<Habitacion>> habitacionies= cargador.getHabitacionesID();
-	  int cantidadDeAcompañantes= Integer.parseInt(input("Ingrese la cantidad de personas que van al viaje (incluyendolo a usted)"));
-	  Date Fecha_llegada= formatearHora(input("Ingrese la fecha de llegada en el formato dd/MM/yy: "), "dd/MM/yy");
-	  Date Fecha_salida= formatearHora(input("Ingrese la fecha de Salida en el formato dd/MM/yy: "), "dd/MM/yy");
-	  HuespedReserva huesped1= huespedes.get(nombre);
-		if (huesped1 == null)
-		{
+	public void reservar() throws IOException {
+
+		String nombre = input("Ingrese su nombre completo: ");
+		HashMap<String, Habitacion> habitaciones = catalogo.getHabitacionies();
+		HashMap<String, ArrayList<Habitacion>> habitacionies = catalogo.getHabitacionesID();
+		HashMap<Date, Float> tarifaEstandar = catalogo.getTarifaEstandar();
+		HashMap<Date, Float> tarifaSuite = catalogo.getTarifaSuite();
+		HashMap<Date, Float> tarifaSuiteDoble = catalogo.getTarifaSuiteDoble();
+		int cantidadDeAcompañantes = Integer.parseInt(input("Ingrese la cantidad de personas que van al viaje (incluyendolo a usted)"));
+		Date Fecha_llegada = formatearHora(input("Ingrese la fecha de llegada en el formato dd/MM/yy: "), "dd/MM/yy");
+		Date Fecha_salida = formatearHora(input("Ingrese la fecha de Salida en el formato dd/MM/yy: "), "dd/MM/yy");
+		HuespedReserva huesped1 = huespedes.get(nombre);
+		if (huesped1 == null) {
 			System.out.println("Necesitas ingresar tus datos primero.");
-			 
-		}
-		else {
-			
-			File archivoHabitaciones= new File ("./data/habitacion.txt");
-			cargador.cargarHabitacion(archivoHabitaciones);
-			ArrayList<String> xd=empleado.reserva(huesped1, Fecha_llegada,  Fecha_salida, cantidadDeAcompañantes, habitacionies);
+
+		} else {
+			FuncionesEmpleado empleado = new FuncionesEmpleado();
+			File archivoHabitaciones = new File("./data/habitacion.txt");
+			catalogo.cargarHabitacion(archivoHabitaciones);
+			ArrayList<Date> fechas = empleado.fechas(Fecha_llegada, Fecha_salida);
+			ArrayList<String> xd = empleado.reserva(huesped1, Fecha_llegada, Fecha_salida, cantidadDeAcompañantes,
+					habitacionies);
+			HashMap<String, Float> valores = empleado.calcularValoresTotales(xd, habitaciones, tarifaEstandar,
+					tarifaSuite, tarifaSuiteDoble, fechas);
 			System.out.println(xd);
+			System.out.println(valores);
+			HuespedReserva huesped = huespedes.get(nombre);
+			int numHabitaciones = xd.size();
+			float precio_habitaciones = 0;
+			for (float precio : valores.values()) {
+				precio_habitaciones += precio;
+			}
+
+			Reserva reserva = new Reserva(huesped, Fecha_llegada, Fecha_salida, precio_habitaciones,cantidadDeAcompañantes, numHabitaciones, 0, false, xd);
+			reservas.put(nombre, reserva);
 			
-			
+
 		}
-		
+
+	}
 	
-			
-	  
-	
+
+	public void cancelarReserva() throws IOException {
+		String nombre= input("Ingresa tu nombre: ");
+		FuncionesEmpleado empleado = new FuncionesEmpleado();
+		Reserva reserva=reservas.get(nombre);
+		ArrayList<String> habitacionesReserva= reserva.getHabitaciones();
+		Date Fecha_llegada= reserva.getFecha_llegada();
+		Date Fecha_salida= reserva.getFecha_salida();
+		String xd=empleado.cancelarReserva(habitacionesReserva, Fecha_llegada,Fecha_salida, inventario);
+											
 	}
 
 	// TODO EL RESTO DEL MENUUUU!!!!!!!!!!!!!!!
@@ -230,6 +259,7 @@ public class AplicacionCliente {
 	
 	public static void main(String[] args) throws IOException
 	{
+		
 		AplicacionCliente consola = new AplicacionCliente();
 		consola.ejecutarAplicacion();
 	}

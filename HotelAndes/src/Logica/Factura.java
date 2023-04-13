@@ -1,11 +1,12 @@
 package Logica;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Factura {
 	
-	public Date  fecha;
+	public LocalDate  fecha;
 	public String nombre;
 	public HuespedReserva huésped;
 	public float valotTotal;
@@ -14,7 +15,7 @@ public class Factura {
 	public ArrayList<Consumo> consumos= new ArrayList<Consumo>();
 	
 	
-	public Factura(Date fecha, String nombre, HuespedReserva huésped, float valotTotal, float impuestos,
+	public Factura(LocalDate fecha, String nombre, HuespedReserva huésped, float valotTotal, float impuestos,
 			int numeroFactura, ArrayList<Consumo> consumos) {
 		
 		this.fecha = fecha;
@@ -25,7 +26,7 @@ public class Factura {
 		this.numeroFactura = numeroFactura;
 		this.consumos = consumos;
 	}
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 	public String getNombre() {
