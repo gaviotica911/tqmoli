@@ -10,6 +10,12 @@ import java.util.HashMap;
 public class FuncionesEmpleado {
 	Inventario inventarioInstancia =new Inventario();
 	HashMap<String, ArrayList<Date>> inventario= inventarioInstancia.getInventario();
+	public CargardorArchivo cargador= new CargardorArchivo(); 
+	public HashMap<String,Bebida> bebidas= cargador.getBebidas();
+	public HashMap<String,Plato> platos= cargador.getPlatos();
+	public HashMap<String,Servicio> servicios=cargador.getServicios();
+
+	
 		
 	public ArrayList<String> reserva(HuespedReserva huesped1, Date Fecha_llegada,Date  Fecha_salida,int cantidadDeAcompañantes, HashMap<String, ArrayList<Habitacion>> catalogo)
 	{
@@ -191,7 +197,41 @@ public static HashMap<String, Float> calcularValoresTotales(ArrayList<String> ha
 	
 	
 	
-	public void cargarConsumo() {}
+	public void cargarConsumo(HashMap<String,Object> opcion) 
+	{
+		if(opcion.get("bebidas")!=null)
+		{
+			Object op= opcion.get("bebidas");
+			Bebida laBebida=bebidas.get(Integer.parseInt((String) op)-1);
+			float
+		
+		}
+		if(opcion.get("palto")!=null)
+		{
+			Object op= opcion.get("plato");
+			Plato elPlato=platos.get(Integer.parseInt((String) op)-1);
+		
+		}
+		if(opcion.get("servicio")!=null)
+		{
+			Object op= opcion.get("servicio");
+			Servicio elServicio=servicios.get(Integer.parseInt((String) op)-1);
+		
+		}
+		
+		 Consumo objconsumo=new Consumo( LocalDate.now(), opcion.get("nombre"), pendiente, elServicio.getPrecio);
+		+fecha:String
+		+Nombre:String
+		+huésped:HuespedDeReserva
+		+precio:String
+		+impuestos:String
+		+pagado: Boolean
+
+		
+		
+		
+		
+	}
 
 
 }

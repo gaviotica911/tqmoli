@@ -18,6 +18,8 @@ public class Reserva {
 	
 	
 	
+	
+	
 	public int getCantidadDeAcompañantesNinos() {
 		return cantidadDeAcompañantesNinos;
 	}
@@ -33,6 +35,10 @@ public class Reserva {
 	public float getPrecio() {
 		return precio;
 	}
+	public HuespedReserva getHuespedReserva() {
+		return huesped;
+	}
+	
 	
 	public Reserva(HuespedReserva huesped, Date fecha_llegada, Date fecha_salida, float precio,
 			int cantidadDeAcompañantesNinos, int cantidadDeAcompañantesAdultos, int numeroDeHabitaciones,

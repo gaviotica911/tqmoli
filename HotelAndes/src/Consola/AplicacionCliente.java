@@ -21,9 +21,10 @@ import Logica.Plato;
 
 public class AplicacionCliente {
 	 public HashMap<String, HuespedReserva> huespedes = new  HashMap<String, HuespedReserva>();
-	 public CargardorArchivo catalogo= new CargardorArchivo ();
-	 public CargardorArchivo cargador= new CargardorArchivo(); 
 	 
+	 public CargardorArchivo cargador= new CargardorArchivo(); 
+	 public ArrayList<String> usuariosCheckIn= new ArrayList<String> ();
+	 FuncionesEmpleado empleado= new FuncionesEmpleado();
 	 
 	// public HashMap<HuespedReserva, Reserva> reservas = new  HashMap<HuespedReserva, Reserva>();
 	
@@ -45,19 +46,19 @@ public class AplicacionCliente {
 					{ingresarDatos();}
 				else if (opcion_seleccionada == 2)
 					{reservar();}
-				else if (opcion_seleccionada == 3 )
+				else if (opcion_seleccionada == 4 )
 				{mostrarCatalogo();}
 				
-				else if (opcion_seleccionada == 4 )
+				else if (opcion_seleccionada == 5 )
 				{mostrarMenuRestaurante();
 					
 				}
-				else if (opcion_seleccionada == 5 )
+				else if (opcion_seleccionada == 6 )
 				{
-					
+					{ejecutarSolicitarServicio();}
 				}
 				
-				else if (opcion_seleccionada == 6)
+				else if (opcion_seleccionada == 8)
 				{
 					System.out.println("Saliendo de la aplicación ...");
 					 AplicacionPrincipal appp= new AplicacionPrincipal();
@@ -82,10 +83,52 @@ public class AplicacionCliente {
 		System.out.println("\nPara reservar necesitas primero ingresar tus datos\n");
 		System.out.println("1. Ingresar Datos");
 		System.out.println("2. Realizar una reserva");
-		System.out.println("3. Solicitar catalogo de servicios");
-		System.out.println("4. Mostrar el menu del Restaurante");
-		System.out.println("5. Solicitar servicio");
-		System.out.println("6. CerrarSesion");
+		System.out.println("3. Realizar una check-in");
+		System.out.println("4. Solicitar catalogo de servicios");
+		System.out.println("5. Mostrar el menu del Restaurante");
+		System.out.println("6. Solicitar servicio");
+		System.out.println("7. Realizar una check-out");
+		System.out.println("8. CerrarSesion");
+		
+	}
+	public void ejecutarSolicitarServicio()
+	{
+		HashMap<String,Object> rta= new HashMap<String,Object> ();
+		String nombre=input("Ingrese su nombre: "); 
+		if ( usuariosCheckIn.contains(nombre)==false)
+		{
+			System.out.println("Tienes que hacer check in antes de solicitar un servicio");
+		}
+		else
+		{
+			int opcion= Integer.parseInt(input("Ingrese 1 si desea ordenar servicios de spa o guia o 2 si desea ordenar del restaurante."));
+			switch(opcion)
+			{
+			case 2: int opcionR=Integer.parseInt(input("Ingrese 1 si desea ordenar bebidas o 2 si desea ordenar platos"));
+					if(opcionR==1)
+					{
+						int bebida=Integer.parseInt(input("Ingrese el numero de bebida que desea ordenar: "));
+						rta.put("bebida", bebida);
+					}
+					if(opcionR==2)
+					{
+						int plato=Integer.parseInt(input("Ingrese el numero de plato que desea ordenar: "));
+						rta.put("plato", plato);
+					}
+					break;
+			case 1: int servicio=Integer.parseInt(input("Ingrese el numero de bebida que desea ordenar: ")); 
+					rta.put("servicio", servicio);
+				    break;
+			}
+			if(rta != null)
+			{
+			rta.put("nombre",nombre);
+			empleado.cargarConsumo(rta);
+			
+			}
+		}
+		
+		
 		
 	}
 	public void ingresarDatos(){
@@ -110,10 +153,7 @@ public class AplicacionCliente {
 	}
 	
 	
-	public void solicitarServicio()
-	{
-		
-	}
+	
 	public void mostrarCatalogo() {
 		System.out.println("Los servicios dispoibles son: ");
 		;
@@ -128,6 +168,7 @@ public class AplicacionCliente {
 	}
 	public void mostrarMenuRestaurante(){
 		System.out.println("BEBIDAS");
+		
 		HashMap<String,Bebida> bebidas= cargador.getBebidas();
 		int cont=1;
 		for(String i: bebidas.keySet() ) {
@@ -158,7 +199,7 @@ public class AplicacionCliente {
 	{
 	
 	  String nombre=input("Ingrese su nombre completo: "); 
-	  HashMap<String, ArrayList<Habitacion>> habitacionies= catalogo.getHabitacionesID();
+	  HashMap<String, ArrayList<Habitacion>> habitacionies= cargador.getHabitacionesID();
 	  int cantidadDeAcompañantes= Integer.parseInt(input("Ingrese la cantidad de personas que van al viaje (incluyendolo a usted)"));
 	  Date Fecha_llegada= formatearHora(input("Ingrese la fecha de llegada en el formato dd/MM/yy: "), "dd/MM/yy");
 	  Date Fecha_salida= formatearHora(input("Ingrese la fecha de Salida en el formato dd/MM/yy: "), "dd/MM/yy");
@@ -169,9 +210,9 @@ public class AplicacionCliente {
 			 
 		}
 		else {
-			FuncionesEmpleado empleado= new FuncionesEmpleado();
+			
 			File archivoHabitaciones= new File ("./data/habitacion.txt");
-			catalogo.cargarHabitacion(archivoHabitaciones);
+			cargador.cargarHabitacion(archivoHabitaciones);
 			ArrayList<String> xd=empleado.reserva(huesped1, Fecha_llegada,  Fecha_salida, cantidadDeAcompañantes, habitacionies);
 			System.out.println(xd);
 			
