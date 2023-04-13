@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FuncionesEmpleado {
 	Inventario inventarioInstancia = new Inventario();
@@ -14,20 +16,138 @@ public class FuncionesEmpleado {
 
 	public ArrayList<String> reserva(HuespedReserva huesped1, Date Fecha_llegada, Date Fecha_salida,
 			int cantidadDeAcompañantes, HashMap<String, ArrayList<Habitacion>> catalogo) {
-		int[] habitacionestipo = new int[3];
+		HashMap<String, Integer> habitacionestipo = new HashMap<>();
+		habitacionestipo.put("estandar", 0);
+		habitacionestipo.put("suite", 0);
+		habitacionestipo.put("suiteDoble", 0);
 		while (cantidadDeAcompañantes > 0) {
 			if (cantidadDeAcompañantes >= 4) { // suiteDoble
-				habitacionestipo[2]++;
+				habitacionestipo.put("suiteDoble", habitacionestipo.get("suiteDoble").intValue() + 1);
 				cantidadDeAcompañantes -= 4;
 			} else if (cantidadDeAcompañantes >= 3) { // suite
-				habitacionestipo[1]++;
+				habitacionestipo.put("suite", habitacionestipo.get("suite").intValue() + 1);
 				cantidadDeAcompañantes -= 3;
 			} else {// estandar
-				habitacionestipo[0]++;
+				habitacionestipo.put("estandar", habitacionestipo.get("estandar").intValue() + 1);
 				cantidadDeAcompañantes -= 2;
 			}
 		}
 
+		ArrayList<Date> fechasEntreEntradaYSalida = fechas(Fecha_llegada, Fecha_salida);
+
+		// ArrayList<Date> diasOcupados= inventario.get(IDcuarto); hola mundo
+
+		ArrayList<String> idsReservados = new ArrayList<String>();
+
+		for (int i = 0; i < fechasEntreEntradaYSalida.size(); i++) {
+			Date fecha = fechasEntreEntradaYSalida.get(i);
+
+			if (habitacionestipo.get("estandar") != 0) {
+				int cantidad = habitacionestipo.get("estandar");
+
+				ArrayList<Habitacion> habitaciones = catalogo.get("estandar");
+				ArrayList<String> idsDisponibles = new ArrayList<String>();
+
+				for (Habitacion habitacion : habitaciones) {
+					if (!inventario.containsKey(habitacion.getId())) {
+						inventario.put(habitacion.getId(), new ArrayList<Date>());
+					}
+					ArrayList<Date> fechasOcupadas = inventario.get(habitacion.getId());
+					if (!fechasOcupadas.contains(fecha)) {
+						idsDisponibles.add(habitacion.getId());
+					}
+				}
+
+				if (idsDisponibles.size() < cantidad) {
+					// No hay suficientes habitaciones disponibles para esta fecha y tipo
+					return new ArrayList<String>();
+				}
+
+				// Reservar habitaciones disponibles
+				for (int k = 0; k < cantidad; k++) {
+
+					String id = idsDisponibles.get(k);
+					idsReservados.add(id);
+					inventario.get(id).add(fecha);
+				}
+			}
+
+			if (habitacionestipo.get("suite") != 0) {
+				int cantidad = habitacionestipo.get("suite");
+
+				ArrayList<Habitacion> habitaciones = catalogo.get("suite");
+				ArrayList<String> idsDisponibles = new ArrayList<String>();
+
+				for (Habitacion habitacion : habitaciones) {
+					if (!inventario.containsKey(habitacion.getId())) {
+						inventario.put(habitacion.getId(), new ArrayList<Date>());
+					}
+					ArrayList<Date> fechasOcupadas = inventario.get(habitacion.getId());
+					if (!fechasOcupadas.contains(fecha)) {
+						idsDisponibles.add(habitacion.getId());
+					}
+				}
+
+				if (idsDisponibles.size() < cantidad) {
+					// No hay suficientes habitaciones disponibles para esta fecha y tipo
+					return new ArrayList<String>();
+				}
+
+				// Reservar habitaciones disponibles
+				for (int k = 0; k < cantidad; k++) {
+
+					String id = idsDisponibles.get(k);
+					idsReservados.add(id);
+					inventario.get(id).add(fecha);
+				}
+			}
+
+			if (habitacionestipo.get("suiteDoble") != 0) {
+				int cantidad = habitacionestipo.get("suiteDoble");
+
+				ArrayList<Habitacion> habitaciones = catalogo.get("suiteDoble");
+				ArrayList<String> idsDisponibles = new ArrayList<String>();
+
+				for (Habitacion habitacion : habitaciones) {
+					if (!inventario.containsKey(habitacion.getId())) {
+						inventario.put(habitacion.getId(), new ArrayList<Date>());
+					}
+					ArrayList<Date> fechasOcupadas = inventario.get(habitacion.getId());
+					if (!fechasOcupadas.contains(fecha)) {
+						idsDisponibles.add(habitacion.getId());
+					}
+				}
+
+				if (idsDisponibles.size() < cantidad) {
+					// No hay suficientes habitaciones disponibles para esta fecha y tipo
+					return new ArrayList<String>();
+				}
+
+				// Reservar habitaciones disponibles
+				for (int k = 0; k < cantidad; k++) {
+
+					String id = idsDisponibles.get(k);
+					idsReservados.add(id);
+					inventario.get(id).add(fecha);
+				}
+			}
+		}
+
+		Set<String> set = new HashSet<>();
+		ArrayList<String> listaSinRepetidos = new ArrayList<>();
+
+		for (String elemento : idsReservados) {
+			if (!set.contains(elemento)) {
+				listaSinRepetidos.add(elemento);
+				set.add(elemento);
+			}
+		}
+
+		return listaSinRepetidos;
+
+	}
+
+	public ArrayList<Date> fechas(Date Fecha_llegada, Date Fecha_salida) {
 		ArrayList<Date> fechasEntreEntradaYSalida = new ArrayList<Date>();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(Fecha_llegada);
@@ -40,58 +160,7 @@ public class FuncionesEmpleado {
 			calendar.add(Calendar.DATE, 1);
 		}
 
-		// ArrayList<Date> diasOcupados= inventario.get(IDcuarto);
-
-		ArrayList<String> idsReservados = new ArrayList<String>();
-
-		for (int i = 0; i < fechasEntreEntradaYSalida.size(); i++) {
-			Date fecha = fechasEntreEntradaYSalida.get(i);
-
-			for (int j = 0; j < habitacionestipo.length; j++) {
-				int cantidad = habitacionestipo[j];
-				String tipoHabitacion = "";
-				switch (j) {
-					case 0:
-						tipoHabitacion = "estandar";
-						break;
-					case 1:
-						tipoHabitacion = "suite";
-						break;
-					case 2:
-						tipoHabitacion = "suiteDoble";
-						break;
-				}
-
-				ArrayList<Habitacion> habitaciones = catalogo.get("estandar");
-				System.out.println(catalogo);
-				ArrayList<String> idsDisponibles = new ArrayList<String>();
-
-				for (Habitacion habitacion : habitaciones) {
-					if (!inventario.containsKey(habitacion.getId())) {
-						inventario.put(habitacion.getId(), new ArrayList<Date>());
-					}
-					ArrayList<Date> fechasOcupadas = inventario.get(habitacion.getId());
-					if (!fechasOcupadas.contains(fecha)) {
-						idsDisponibles.add(habitacion.getId());
-					}
-				}
-				/*
-				 * if (idsDisponibles.size() < cantidad) {
-				 * // No hay suficientes habitaciones disponibles para esta fecha y tipo
-				 * return new ArrayList<String>();
-				 * }
-				 */
-				// Reservar habitaciones disponibles
-				for (int k = 0; k < cantidad; k++) {
-
-					String id = idsDisponibles.get(k);
-					idsReservados.add(id);
-					inventario.get(id).add(fecha);
-				}
-			}
-		}
-
-		return idsReservados;
+		return fechasEntreEntradaYSalida;
 	}
 
 	public void cancelarReservaFecha(ArrayList<String> habitacionesReserva, Date Fecha,
@@ -129,8 +198,9 @@ public class FuncionesEmpleado {
 		}
 	}
 
-	public static HashMap<String, Float> calcularValoresTotales(ArrayList<String> habitacionesReservadas,
-			HashMap<String, Habitacion> habitaciones, HashMap<Date, Float> tarifas,
+	public HashMap<String, Float> calcularValoresTotales(ArrayList<String> habitacionesReservadas,
+			HashMap<String, Habitacion> habitaciones, HashMap<Date, Float> tarifaEstandar,
+			HashMap<Date, Float> tarifaSuite, HashMap<Date, Float> tarifaSuiteDoble,
 			ArrayList<Date> fechasEntreEntradaYSalida) {
 		HashMap<String, Float> valoresTotales = new HashMap<String, Float>();
 
@@ -140,8 +210,16 @@ public class FuncionesEmpleado {
 
 			for (Date fecha : fechasEntreEntradaYSalida) {
 				float valorBase = habitacion.getPrecioFijo();
+				String tipo = habitacion.getTipo();
+				Float valorAdicional = null;
+				if (tipo == "estandar") {
+					valorAdicional = tarifaEstandar.get(fecha);
+				} else if (tipo == "suite") {
+					valorAdicional = tarifaSuite.get(fecha);
+				} else {
+					valorAdicional = tarifaSuiteDoble.get(fecha);
+				}
 
-				Float valorAdicional = tarifas.get(fecha);
 				if (valorAdicional != null) {
 					valorBase += valorAdicional;
 				}
