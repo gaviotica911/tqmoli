@@ -1,15 +1,20 @@
 package Consola;
 import Logica.Bebida;
 import Logica.CargardorArchivo;
+import Logica.Consumo;
+import Logica.Factura;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import Logica.Reserva;
 import Logica.Servicio;
@@ -50,6 +55,8 @@ public class AplicacionCliente {
 					{ingresarDatos();}
 				else if (opcion_seleccionada == 2)
 					{reservar();}
+				else if (opcion_seleccionada == 3)
+				{}//TODO llamar el checkIn
 				else if (opcion_seleccionada == 4 )
 				{mostrarCatalogo();}
 				
@@ -61,8 +68,14 @@ public class AplicacionCliente {
 				{
 					{ejecutarSolicitarServicio();}
 				}
+				else if (opcion_seleccionada == 7)
+				{checkOut();}
+				else if (opcion_seleccionada == 8 )
+				{
+					{ejecutarPagarUnProducto();}
+				}
 				
-				else if (opcion_seleccionada == 8)
+				else if (opcion_seleccionada == 9)
 				{
 					System.out.println("Saliendo de la aplicación ...");
 					 AplicacionPrincipal appp= new AplicacionPrincipal();
@@ -88,12 +101,62 @@ public class AplicacionCliente {
 		System.out.println("1. Ingresar Datos");
 		System.out.println("2. Realizar una reserva");
 		System.out.println("3. Realizar una check-in");
-		System.out.println("4. Solicitar catalogo de servicios");
+		System.out.println("4. Solicitar catalogo de servicios (guia turistico y spa)");
 		System.out.println("5. Mostrar el menu del Restaurante");
-		System.out.println("6. Solicitar servicio");
+		System.out.println("6. Solicitar servicio (Plato, bebida o servicio)");
 		System.out.println("7. Realizar una check-out");
-		System.out.println("8. CerrarSesion");
+		System.out.println("8. Pagar Servicio");
+		System.out.println("9. CerrarSesion");
 		
+	}
+	
+	public void ejecutarPagarUnProducto()
+	{
+		String nombreH=input("Ingrese su nombre");
+		
+		if(huespedes.get(nombreH)==null)
+		{
+			System.out.println("No ingreso el nombre de un huesped");
+		}
+		else
+		{
+			HashMap<String,Consumo>consumosH= (huespedes.get(nombreH)).getConsumos();
+			
+			int cont=1;
+			for(String i: consumosH.keySet() ) {
+				Consumo c = consumosH.get(i);
+	
+	        	System.out.println(cont+ ". " + c.getNombre() +  ", precio: "+c.getPrecio()+", impuesto: "+ c.getImpuestos() + ", pagado: " + c.getPagado());
+			}
+			int producto=Integer.parseInt(input("Ingrese el numero del producto que desea pagar"));
+			List<Consumo> listaConsumo = new ArrayList<Consumo>(consumosH.values());	
+			(listaConsumo.get(producto)).setPagado(true);
+			System.out.println("Se realizo el pago con exito");
+		}
+		
+		
+		
+		
+	}
+	
+	public void checkOut()
+	{
+		//TODO hacer todo el checjout
+		
+		//aca cuando hace el check out le doy la factura
+		String nombre=input("Ingrese su nombre");
+		
+		if(huespedes.get(nombre)==null)
+		{
+			System.out.println("No ingreso el nombre de un huesped");
+		}
+		else
+		{
+			ArrayList<Consumo> consumosLiii = new ArrayList<Consumo> (((huespedes.get(nombre)).getConsumos()).values());
+			
+			Factura f= new Factura(LocalDate.now(), nombre,( huespedes.get(nombre)), consumosLiii );
+		}
+			
 	}
 	public void ejecutarSolicitarServicio()
 	{
@@ -147,7 +210,8 @@ public class AplicacionCliente {
 			  HuespedReserva huesped1= huespedes.get(nombre);
 				if (huesped1 == null)
 				{
-					 huesped1 = new HuespedReserva(nombre, documento, correo, celular);
+					HashMap<String,Consumo> consumoss= new HashMap<String,Consumo>();
+					 huesped1 = new HuespedReserva(nombre, documento, correo, celular, consumoss);
 					huespedes.put(nombre,huesped1);
 				}
 				else {

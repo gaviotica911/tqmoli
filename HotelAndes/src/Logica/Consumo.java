@@ -1,6 +1,6 @@
 package Logica;
 
-import java.util.Date;
+
 import java.time.LocalDate;
 
 
@@ -8,17 +8,16 @@ public class Consumo {
 	
 	public LocalDate fecha;
 	public String nombre;
-	public HuespedReserva huésped;
 	public float precio;
 	public float impuestos;
 	public boolean pagado;
 	
 	
-	public Consumo(LocalDate fecha, String nombre, HuespedReserva huésped, float precio, float impuestos, boolean pagado) {
+	public Consumo(LocalDate fecha, String nombre,  float precio, float impuestos, boolean pagado) {
 	
 		this.fecha = fecha;
 		this.nombre = nombre;
-		this.huésped = huésped;
+		
 		this.precio = precio;
 		this.impuestos = impuestos;
 		this.pagado = pagado;
@@ -29,9 +28,7 @@ public class Consumo {
 	public String getNombre() {
 		return nombre;
 	}
-	public HuespedReserva getHuésped() {
-		return huésped;
-	}
+	
 	public float getPrecio() {
 		return precio;
 	}
@@ -41,6 +38,10 @@ public class Consumo {
 	public boolean getPagado() {
 		return pagado;
 	}
+	public void setPagado(boolean pagado) {
+		this.pagado = pagado;
+	}
+	
 	
 	
 

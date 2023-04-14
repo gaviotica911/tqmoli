@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class FuncionesEmpleado {
@@ -17,7 +18,10 @@ public class FuncionesEmpleado {
 	public HashMap<String,Bebida> bebidas= cargador.getBebidas();
 	public HashMap<String,Plato> platos= cargador.getPlatos();
 	public HashMap<String,Servicio> servicios=cargador.getServicios();
-	public ArrayList<Consumo> consumos=new ArrayList<Consumo>();
+	List<Servicio> listaPlatos = new ArrayList<Servicio>(platos.values());	
+	List<Servicio> listaBebidas = new ArrayList<Servicio>(bebidas.values());	
+	List<Servicio> listaServicio = new ArrayList<Servicio>(servicios.values());	
+	
 
 	public ArrayList<String> reserva(HuespedReserva huesped1, Date Fecha_llegada, Date Fecha_salida,
 		int cantidadDeAcompañantes, HashMap<String, ArrayList<Habitacion>> catalogo) {
@@ -240,37 +244,39 @@ public class FuncionesEmpleado {
 	}
 	
 	
-	public ArrayList<Consumo> cargarConsumo(HashMap<String,Object> opcion) 
+	public void cargarConsumo(HashMap<String,Object> opcion) 
 	{
 		Servicio elServicio=null;
 	
 		if(opcion.get("bebidas")!=null)
 		{
 			Object op= opcion.get("bebidas");
-			elServicio=bebidas.get(Integer.parseInt((String) op)-1);
+			elServicio=listaBebidas.get(Integer.parseInt((String) op)-1);
 		
 		}
 		if(opcion.get("palto")!=null)
 		{
 			Object op= opcion.get("plato");
-			elServicio=platos.get(Integer.parseInt((String) op)-1);
+			elServicio=listaPlatos.get(Integer.parseInt((String) op)-1);
 		
 		}
 		if(opcion.get("servicio")!=null)
 		{
 			Object op= opcion.get("servicio");
-			elServicio=servicios.get(Integer.parseInt((String) op)-1);
+			elServicio=listaServicio.get(Integer.parseInt((String) op)-1);
 		
 		}
 		 if(elServicio==null)
 		 {
 			 System.out.println("Algo Salio Mal");
 		 }
-		 else { Consumo objconsumo=new Consumo( LocalDate.now(), (String)opcion.get("nombre"), (HuespedReserva)opcion.get("reserva"), elServicio.getPrecioTotal(), (float)(elServicio.getPrecioTotal()*0.19), false);
-		 consumos.add(objconsumo);
+		 else { Consumo objconsumo=new Consumo( LocalDate.now(), (String)elServicio.getNombre(), elServicio.getPrecioTotal(), (float)(elServicio.getPrecioTotal()*0.19), false);
+		 HuespedReserva a=(HuespedReserva)opcion.get("reserva");
+		 HashMap<String,Consumo> losconsumos= a.getConsumos();
+		 losconsumos.put(objconsumo.getNombre(),objconsumo);
 		
 		 }
-		 return consumos;
+		 
 	}
 
 	public static String fechaString(Date date) {
