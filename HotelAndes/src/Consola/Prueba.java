@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Logica.Bebida;
 import Logica.Cama;
@@ -42,10 +43,10 @@ public class Prueba {
 		{
 			
 			Habitacion hab = cuartos.get(i);
-            System.out.println("iD: " + i+ "capacidad: "+hab.getCapacidad() + "ubicacion : " + hab.getUbicacion() + "Precio: "+hab.getPrecioFijo()+ "Camas: ");
+            System.out.println("iD: " + i+ ", capacidad: "+hab.getCapacidad() + ", ubicacion : " + hab.getUbicacion() + ", Precio: "+hab.getPrecioFijo()+ ", Camas: ");
             ArrayList<Cama> camasHab= hab.getCama();
             for(Cama c:camasHab ) {
-            	System.out.println(c.tamaño +  ",");
+            	System.out.println(c.tamaño +  ".");
             }
             System.out.println("\n");
             
@@ -54,7 +55,7 @@ public class Prueba {
  		}
  		
 		System.out.println("TARIFAS");
-        File archivoTarifa= new File ("./data/tarifas.txt");
+        File archivoT= new File ("./data/tarifas.txt");
         ArrayList<Object> tarifas= probar.cargarTarifas();
     	//0 estandar, 1 suite, 2 doble, 3 tarifapor fecha
         
@@ -66,11 +67,24 @@ public class Prueba {
          Object tarifaSuite= tarifas.get(2);
          Object tarifaSuiteDoble= tarifas.get(3);
          //System.out.println(tarifaEstandar);
-         for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) 
- 		{
+         System.out.println("--------TARIFA ESTANDAR--------");
+         for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) {
  			String fecha=fechaString(j);
- 			System.out.println(fecha + ": "+ (((HashMap<String, Cama>) tarifaEstandar).get(j))); 
+ 			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaEstandar).get(j))); 
+ 			
  		}
+         System.out.println("--------TARIFA SUITE--------");
+         for(Date j : ((HashMap<Date, Float>) tarifaSuite).keySet()) {
+  			String fecha=fechaString(j);
+  			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaSuite).get(j))); 
+  			
+  		}
+         System.out.println("--------TARIFA SUITE DOBLE--------");
+         for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) {
+  			String fecha=fechaString(j);
+  			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaSuite).get(j))); 
+  			
+  		}
          
 		
 		
@@ -107,10 +121,10 @@ public class Prueba {
 			Servicio c = servicios.get(i);
 		//nombre;ubicacion;precio;diasDisponible;horarioDisponible
 
-        	System.out.println("producto: " + c.getNombre() +  ", precio: "+c.getPrecioTotal()+", tiempo: "+ c.getHorariosDeDisponibilidad() + "ubicacion: " + c.getUbicacion());
+			System.out.println("producto: " + c.getNombre() + ", ubicacion: " + c.getUbicacion() + ", precio: "+c.getPrecioTotal()+", tiempo: "+ c.getHorariosDeDisponibilidad()+" ,Dias de Disponibilidad: ");
         	
-            for(String d:c.getDias() ) {
-            	System.out.println(d +  ",");
+            for(String d: c.getDias() ) {
+            	System.out.println(d +  ".");
             }
             System.out.println("\n");
 		}
