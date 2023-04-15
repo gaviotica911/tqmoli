@@ -50,6 +50,13 @@ public class MenuAdmin {
 				else if (opcion_seleccionada == 6)
 					{ejecutarCargarTarifas();}
 				
+				else if (opcion_seleccionada == 7)
+				{
+					System.out.println("Saliendo de la aplicación ...");
+					 AplicacionPrincipal appp= new AplicacionPrincipal();
+					appp.ejecutarAplicacion();
+				}
+				
 				else
 				{
 					System.out.println("Por favor seleccione una opción válida.");
@@ -84,7 +91,7 @@ public class MenuAdmin {
 		
 		
 		File archivoT= new File ("./data/" + archivo);
-        ArrayList<Object> tarifas= Admin.cargarTarifas();
+        ArrayList<Object> tarifas= Admin.cargarTarifas(archivoT);
     	//0 estandar, 1 suite, 2 doble, 3 tarifapor fecha
         
         HashMap<Date, String> diasAño= Admin.cargarDiasAño();
@@ -98,19 +105,19 @@ public class MenuAdmin {
          System.out.println("--------TARIFA ESTANDAR--------");
          for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) {
  			String fecha=fechaString(j);
- 			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaEstandar).get(j))); 
+ 			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaEstandar).get(j))); 
  			
  		}
          System.out.println("--------TARIFA SUITE--------");
          for(Date j : ((HashMap<Date, Float>) tarifaSuite).keySet()) {
   			String fecha=fechaString(j);
-  			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaSuite).get(j))); 
+  			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaSuite).get(j))); 
   			
   		}
          System.out.println("--------TARIFA SUITE DOBLE--------");
          for(Date j : ((HashMap<Date, Float>) tarifaSuiteDoble).keySet()) {
   			String fecha=fechaString(j);
-  			System.out.println(fecha + ": "+ (( (HashMap<String, Cama>) tarifaSuiteDoble).get(j))); 
+  			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaSuiteDoble).get(j))); 
   			
   		}
 		
@@ -271,6 +278,7 @@ public class MenuAdmin {
 		System.out.println("4. Cargar Platos ");
 		System.out.println("5. Cargar Servicios");
 		System.out.println("6. Cargar Tarifas");
+		System.out.println("7.Cerrar Sesión"); 
 		
 		
 		

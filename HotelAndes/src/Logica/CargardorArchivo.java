@@ -331,10 +331,10 @@ public class CargardorArchivo {
 		return habitacionesPorTipo;
 	}
 	
-	public ArrayList<Object> cargarTarifas () throws IOException
+	public ArrayList<Object> cargarTarifas (File archivoTarifas  ) throws IOException
 	{
 		diasAño=cargarDiasAño();
-		File archivoTarifas= new File ("./data/tarifas.txt");
+		
 		FileReader archivo= new FileReader(archivoTarifas);
 		BufferedReader br = new BufferedReader(archivo);
 		String linea = br.readLine();
@@ -352,6 +352,7 @@ public class CargardorArchivo {
 			String[] dias = partes[1].split(",");
 			String tipoHabitación= partes[2];
 			float extra= Integer.parseInt(partes[3]);
+			System.out.println(extra);
 			String diasemanaTarifa= diasAño.get(fecha);
 			
 				if(tipoHabitación.equals("estandar"))
