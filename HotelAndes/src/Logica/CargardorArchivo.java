@@ -30,7 +30,16 @@ public class CargardorArchivo {
 	public HashMap<String, Bebida> bebidas= new  HashMap<String, Bebida>();
 	public ArrayList <HashMap<String, ArrayList<Bebida>>> BebidaporNom= new ArrayList <HashMap<String, ArrayList<Bebida>>>();
 	public HashMap<String, Servicio> servicios= new  HashMap<String, Servicio>();
-	
+	public HashMap<String,Reserva> reservas=new HashMap<String, Reserva>();
+
+
+
+
+
+
+    public HashMap<String, Reserva> getReservas(){
+        return reservas;
+    }
 	
 	
 	

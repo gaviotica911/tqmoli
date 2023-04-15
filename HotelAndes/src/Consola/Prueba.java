@@ -58,14 +58,12 @@ public class Prueba {
         File archivoT= new File ("./data/tarifas.txt");
         ArrayList<Object> tarifas= probar.cargarTarifas();
     	//0 estandar, 1 suite, 2 doble, 3 tarifapor fecha
-        
         HashMap<Date, String> diasAño= probar.cargarDiasAño();
        
-         
-         Object principal= tarifas.get(0);
-         Object tarifaEstandar= tarifas.get(1);
-         Object tarifaSuite= tarifas.get(2);
-         Object tarifaSuiteDoble= tarifas.get(3);
+        Object principal= tarifas.get(0);
+        Object tarifaEstandar= tarifas.get(1);
+        Object tarifaSuite= tarifas.get(2);
+        Object tarifaSuiteDoble= tarifas.get(3);
          //System.out.println(tarifaEstandar);
          System.out.println("--------TARIFA ESTANDAR--------");
          for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) {
