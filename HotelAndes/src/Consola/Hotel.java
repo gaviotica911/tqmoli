@@ -69,7 +69,7 @@ public class Hotel {
 			retorno="Inició sesión con exito";
 			
 			if(persona.equals("empleado") ){retorno="dhdd";}//TODO
-			if(persona.equals("admin")) {admins.ejecutarAplicacion();}
+			if(persona.equals("administrador")) {admins.ejecutarAplicacion();}
 			if(persona.equals("usuario")) {clientes.ejecutarAplicacion();}
 			
 		}

@@ -30,7 +30,16 @@ public class CargardorArchivo {
 	public HashMap<String, Bebida> bebidas= new  HashMap<String, Bebida>();
 	public ArrayList <HashMap<String, ArrayList<Bebida>>> BebidaporNom= new ArrayList <HashMap<String, ArrayList<Bebida>>>();
 	public HashMap<String, Servicio> servicios= new  HashMap<String, Servicio>();
-	
+	public HashMap<String,Reserva> reservas=new HashMap<String, Reserva>();
+
+
+
+
+
+
+    public HashMap<String, Reserva> getReservas(){
+        return reservas;
+    }
 	
 	
 	
@@ -322,10 +331,10 @@ public class CargardorArchivo {
 		return habitacionesPorTipo;
 	}
 	
-	public ArrayList<Object> cargarTarifas () throws IOException
+	public ArrayList<Object> cargarTarifas (File archivoTarifas  ) throws IOException
 	{
 		diasAño=cargarDiasAño();
-		File archivoTarifas= new File ("./data/tarifas.txt");
+		
 		FileReader archivo= new FileReader(archivoTarifas);
 		BufferedReader br = new BufferedReader(archivo);
 		String linea = br.readLine();
@@ -343,6 +352,7 @@ public class CargardorArchivo {
 			String[] dias = partes[1].split(",");
 			String tipoHabitación= partes[2];
 			float extra= Integer.parseInt(partes[3]);
+			System.out.println(extra);
 			String diasemanaTarifa= diasAño.get(fecha);
 			
 				if(tipoHabitación.equals("estandar"))

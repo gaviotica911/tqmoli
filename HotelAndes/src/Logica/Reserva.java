@@ -34,6 +34,10 @@ public class Reserva {
 		return precio;
 	}
 
+	public HuespedReserva getHuespedReserva() {
+		return huesped;
+	}
+
 	public Reserva(HuespedReserva huesped, Date fecha_llegada, Date fecha_salida, float precio,
 			int cantidadDeAcompañantes, int numeroDeHabitaciones,
 			float montoTotal, boolean estado, ArrayList<String> habitaciones) {

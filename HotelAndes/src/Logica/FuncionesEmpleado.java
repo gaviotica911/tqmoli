@@ -8,14 +8,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import java.util.List;
+
 import java.util.Set;
 
 public class FuncionesEmpleado {
 	Inventario inventarioInstancia = new Inventario();
 	HashMap<String, ArrayList<Date>> inventario = inventarioInstancia.getInventario();
+	public CargardorArchivo cargador = new CargardorArchivo();
+	public HashMap<String, Bebida> bebidas = cargador.getBebidas();
+	public HashMap<String, Plato> platos = cargador.getPlatos();
+	public HashMap<String, Servicio> servicios = cargador.getServicios();
+	List<Servicio> listaPlatos = new ArrayList<Servicio>(platos.values());
+	List<Servicio> listaBebidas = new ArrayList<Servicio>(bebidas.values());
+	List<Servicio> listaServicio = new ArrayList<Servicio>(servicios.values());
 
 	public ArrayList<String> reserva(HuespedReserva huesped1, Date Fecha_llegada, Date Fecha_salida,
 			int cantidadDeAcompañantes, HashMap<String, ArrayList<Habitacion>> catalogo) {
+
 		HashMap<String, Integer> habitacionestipo = new HashMap<>();
 		habitacionestipo.put("estandar", 0);
 		habitacionestipo.put("suite", 0);
@@ -174,7 +185,9 @@ public class FuncionesEmpleado {
 	}
 
 	public String cancelarReserva(ArrayList<String> habitacionesReserva, Date FechaLlegada,
-			ArrayList<Date> FechasEntreEntradaYSalida, HashMap<String, ArrayList<Date>> inventario) {
+
+			Date FechaSalida, HashMap<String, ArrayList<Date>> inventario) {
+
 		Date fechaActual = new Date();
 
 		Calendar cal1 = Calendar.getInstance();
@@ -188,14 +201,20 @@ public class FuncionesEmpleado {
 		long diferencia = tiempo2 - tiempo1;
 		int dias = (int) (diferencia / (1000 * 60 * 60 * 24));
 
+		ArrayList<Date> FechasEntreEntradaYSalida = fechas(FechaLlegada, FechaSalida);
+
 		if (dias <= 2) {
 			for (Date Fecha : FechasEntreEntradaYSalida) {
 				cancelarReservaFecha(habitacionesReserva, Fecha, inventario);
 			}
+
+			System.out.println(inventario);
+
 			return ("Se ha cancelado su reserva");
 		} else {
 			return ("No es posible cancelar la reserva debido a que debe ser 2 días antes de la fecha de inicio de la reserva");
 		}
+
 	}
 
 	public HashMap<String, Float> calcularValoresTotales(ArrayList<String> habitacionesReservadas,
@@ -233,6 +252,37 @@ public class FuncionesEmpleado {
 		return valoresTotales;
 	}
 
+	public void cargarConsumo(HashMap<String, Object> opcion) {
+		Servicio elServicio = null;
+
+		if (opcion.get("bebidas") != null) {
+			Object op = opcion.get("bebidas");
+			elServicio = listaBebidas.get(Integer.parseInt((String) op) - 1);
+
+		}
+		if (opcion.get("palto") != null) {
+			Object op = opcion.get("plato");
+			elServicio = listaPlatos.get(Integer.parseInt((String) op) - 1);
+
+		}
+		if (opcion.get("servicio") != null) {
+			Object op = opcion.get("servicio");
+			elServicio = listaServicio.get(Integer.parseInt((String) op) - 1);
+
+		}
+		if (elServicio == null) {
+			System.out.println("Algo Salio Mal");
+		} else {
+			Consumo objconsumo = new Consumo(LocalDate.now(), (String) elServicio.getNombre(),
+					elServicio.getPrecioTotal(), (float) (elServicio.getPrecioTotal() * 0.19), false);
+			HuespedReserva a = (HuespedReserva) opcion.get("reserva");
+			HashMap<String, Consumo> losconsumos = a.getConsumos();
+			losconsumos.put(objconsumo.getNombre(), objconsumo);
+
+		}
+
+	}
+
 	public static String fechaString(Date date) {
 
 		SimpleDateFormat dateFormatter = null;
@@ -241,6 +291,15 @@ public class FuncionesEmpleado {
 
 		return dateFormatter.format(date);
 
+	}
+
+	public void generarFactura(String nombre) {
+		// Factura factura= new Factura(LocalDate.now(), )
+		// return
+
+		// public Factura(Date fecha, String nombre, HuespedReserva huésped, float
+		// valotTotal, float impuestos, int numeroFactura, ArrayList<Consumo> consumos)
+		// {
 	}
 
 	public Date formatearHora(String date_time, String formato) {
@@ -259,8 +318,4 @@ public class FuncionesEmpleado {
 		return date;
 	}
 
-	public void cargarConsumo() {
-	}
-
 }
-// prueba necesito que sirvas por favor dios jaskjhkjdfkdsafkdhsf
