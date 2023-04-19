@@ -38,6 +38,10 @@ public class Reserva {
 		return huesped;
 	}
 
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	public Reserva(HuespedReserva huesped, Date fecha_llegada, Date fecha_salida, float precio,
 			int cantidadDeAcompañantes, int numeroDeHabitaciones,
 			float montoTotal, boolean estado, ArrayList<String> habitaciones) {

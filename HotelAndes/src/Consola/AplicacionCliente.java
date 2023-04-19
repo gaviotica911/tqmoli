@@ -54,7 +54,8 @@ public class AplicacionCliente {
 				} else if (opcion_seleccionada == 2) {
 					reservar();
 				} else if (opcion_seleccionada == 3) {
-				} // TODO llamar el checkIn
+					checkIn();
+				} 
 				else if (opcion_seleccionada == 4) {
 					mostrarCatalogo();
 				}
@@ -72,9 +73,11 @@ public class AplicacionCliente {
 					{
 						ejecutarPagarUnProducto();
 					}
+				} else if (opcion_seleccionada == 9) {
+					cancelarReserva();
 				}
 
-				else if (opcion_seleccionada == 9) {
+				else if (opcion_seleccionada == 10) {
 
 					System.out.println("Saliendo de la aplicación ...");
 					AplicacionPrincipal appp = new AplicacionPrincipal();
@@ -101,7 +104,8 @@ public class AplicacionCliente {
 		System.out.println("6. Solicitar servicio (Plato, bebida o servicio)");
 		System.out.println("7. Realizar una check-out");
 		System.out.println("8. Pagar Servicio");
-		System.out.println("9. CerrarSesion");
+		System.out.println("9. Cancelar reserva");
+		System.out.println("10. Cerrar Sesion");
 
 	}
 
@@ -142,6 +146,28 @@ public class AplicacionCliente {
 			Factura f = new Factura(LocalDate.now(), nombre, (huespedes.get(nombre)), consumosLiii);
 		}
 
+	}
+
+	public void checkIn() {
+
+		String nombre = input("Ingrese su nombre");
+		if (huespedes.get(nombre) == null) {
+			System.out.println("No ingreso el nombre de un huesped");
+		} else {
+
+			Reserva reserva = reservas.get(nombre);
+			int cantidad = reserva.getCantidadDeAcompañantes();
+			HashMap<String, String> huespedes = new HashMap<String, String>();
+
+			for (int i = 0; i < cantidad; i++) {
+				String nombre1 = input("Por favor ingrese el nombre del huesped" + i);
+				String id = input("Ingrese su cédula por favor:" + i);
+				huespedes.put(nombre1, id);
+			}
+			reserva.setEstado(true);
+
+			System.out.println("Registro exisoto");
+		}
 	}
 
 	public void ejecutarSolicitarServicio() {
