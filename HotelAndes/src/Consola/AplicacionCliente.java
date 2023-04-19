@@ -325,14 +325,12 @@ public class AplicacionCliente {
 
 	}
 
-	
-	
 
 	
-	public String input(String mensaje)
-	{
-		try
-		{
+
+	public String input(String mensaje) {
+		try {
+
 			System.out.print(mensaje + ": ");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			return reader.readLine();

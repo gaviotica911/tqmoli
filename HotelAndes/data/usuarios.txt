@@ -6,3 +6,4 @@ holacol;123;usuario
 gavis;1234;usuario
 gabriela;1234;usuario
 francois;1234;usuario
+gaviotic911;124;usuario
