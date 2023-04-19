@@ -1,6 +1,7 @@
 package Consola;
 
 import Logica.CargardorArchivo;
+import Logica.Controlador;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +23,7 @@ import Logica.Servicio;
 import Logica.Tarifa;
 
 public class MenuAdmin {
-	static CargardorArchivo Admin= new CargardorArchivo();
+	public Controlador controlador= new Controlador();
 	
 
 	
@@ -91,10 +92,10 @@ public class MenuAdmin {
 		
 		
 		File archivoT= new File ("./data/" + archivo);
-        ArrayList<Object> tarifas= Admin.cargarTarifas(archivoT);
+        ArrayList<Object> tarifas= controlador.cargarTarifas(archivo);
     	//0 estandar, 1 suite, 2 doble, 3 tarifapor fecha
         
-        HashMap<Date, String> diasAño= Admin.cargarDiasAño();
+        HashMap<Date, String> diasAño= controlador.cargarDiasAño();
        
          
          Object principal= tarifas.get(0);
@@ -105,19 +106,19 @@ public class MenuAdmin {
          System.out.println("--------TARIFA ESTANDAR--------");
          for(Date j : ((HashMap<Date, Float>) tarifaEstandar).keySet()) {
  			String fecha=fechaString(j);
- 			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaEstandar).get(j))); 
+ 			System.out.println(fecha + ": "+ (( (HashMap<Date, Float>) tarifaEstandar).get(j))); 
  			
  		}
          System.out.println("--------TARIFA SUITE--------");
          for(Date j : ((HashMap<Date, Float>) tarifaSuite).keySet()) {
   			String fecha=fechaString(j);
-  			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaSuite).get(j))); 
+  			System.out.println(fecha + ": "+ (( (HashMap<Date, Float>) tarifaSuite).get(j))); 
   			
   		}
          System.out.println("--------TARIFA SUITE DOBLE--------");
          for(Date j : ((HashMap<Date, Float>) tarifaSuiteDoble).keySet()) {
   			String fecha=fechaString(j);
-  			System.out.println(fecha + ": "+ (( (HashMap<String, Float>) tarifaSuiteDoble).get(j))); 
+  			System.out.println(fecha + ": "+ (( (HashMap<Date, Float>) tarifaSuiteDoble).get(j))); 
   			
   		}
 		
@@ -139,9 +140,7 @@ public class MenuAdmin {
 		
 		String archivo = input ("Ingrese el nombre del archivo en formato .txt: ");
 		
-		
-		File archivoS= new File ("./data/" + archivo);
-		HashMap<String,Servicio> servicios= Admin.cargarServicios( archivoS);
+		HashMap<String,Servicio> servicios= controlador.cargarServicios(archivo);
 		for(String i: servicios.keySet() ) {
 			Servicio c = servicios.get(i);
 		//nombre;ubicacion;precio;diasDisponible;horarioDisponible
@@ -164,8 +163,8 @@ public class MenuAdmin {
 		String archivo = input ("Ingrese el nombre del archivo en formato .txt: ");
 		
 		
-		File archivoP= new File ("./data/" + archivo);
-		HashMap<String,Plato> platos= Admin.cargarPlato( archivoP);
+		
+		HashMap<String,Plato> platos= controlador.cargarPlatos(archivo);
 		for(String i: platos.keySet() ) {
 			Plato c = platos.get(i);
 		//producto;precio;tiempo;habitación
@@ -175,20 +174,13 @@ public class MenuAdmin {
 		
 	}
 
-
-
-
-
-
-
-
 	public void ejecutarCargarBebidas() throws IOException {
 		
 		String archivo = input ("Ingrese el nombre del archivo en formato .txt: ");
 		
 		
 		File archivoB= new File ("./data/" + archivo);
-		HashMap<String,Bebida> bebidas= Admin.cargarBebida( archivoB);
+		HashMap<String,Bebida> bebidas= controlador.cargarBebidas(archivo);
 		for(String i: bebidas.keySet() ) {
 			Bebida c = bebidas.get(i);
 		//producto;precio;tiempo;habitación
@@ -199,16 +191,11 @@ public class MenuAdmin {
 	}
 
 
-
-
 	public void ejecutarCargarHabitaciones() throws IOException {
-		
 		String archivo = input ("Ingrese el nombre del archivo en formato .txt: ");
 		
-		
-		File archivoHabitaciones= new File ("./data/" + archivo);
-		
-		HashMap<String, Habitacion> cuartos= Admin.cargarHabitacion ( archivoHabitaciones);
+		HashMap<String, Habitacion> cuartos= controlador.cargarHabitaciones(archivo);
+
 		System.out.println("Cuartos: \n");
 		for(String i : cuartos.keySet()) 
 		{
@@ -232,11 +219,12 @@ public class MenuAdmin {
 
 	public void ejecutarCargarCamas() throws IOException {
 		String archivo = input ("Ingrese el nombre del archivo en formato .txt: ");
+
 		
 		
-		File archivoCamas= new File ("./data/" + archivo);
 		
-		HashMap<String,Cama> camas= Admin.cargarCamas ( archivoCamas);
+		HashMap<String, Cama> camas= controlador.cargarCamas(archivo);
+		
 		for(String i: camas.keySet() ) {
 			Cama c = camas.get(i);
 		

@@ -30,91 +30,7 @@ public class CargardorArchivo {
 	public HashMap<String, Bebida> bebidas= new  HashMap<String, Bebida>();
 	public ArrayList <HashMap<String, ArrayList<Bebida>>> BebidaporNom= new ArrayList <HashMap<String, ArrayList<Bebida>>>();
 	public HashMap<String, Servicio> servicios= new  HashMap<String, Servicio>();
-	public HashMap<String,Reserva> reservas=new HashMap<String, Reserva>();
-
-
-
-
-
-
-    public HashMap<String, Reserva> getReservas(){
-        return reservas;
-    }
 	
-	
-	
-	/*
-	 +habitaciones: ArrayList <HashMap<String(ID) , List<Habitaciones>>>
-	+precioSpa: int
-	+precioGuia: int
-	+tarifas: ArrayList<HasMap<String(dia del año), float (tarifa)>>
-	+menuRestaurante: ArrayList<HashMap>
- */
-	
-	
-	
-	
-	
-	public HashMap<String, Servicio> getServicios() {
-		return servicios;
-	}
-
-
-
-
-
-	public HashMap<String, Cama> getCamas() {
-		return camas;
-	}
-
-
-
-
-
-	public HashMap<String, ArrayList<Habitacion>> getHabitacionesPorTipo() {
-		return habitacionesPorTipo;
-	}
-
-
-
-
-
-	public HashMap<Date, Float> getTarifaEstandar() {
-		return tarifaEstandar;
-	}
-
-
-
-
-
-	public HashMap<Date, Float> getTarifaSuite() {
-		return tarifaSuite;
-	}
-
-
-
-
-
-	public HashMap<Date, Float> getTarifaSuiteDoble() {
-		return tarifaSuiteDoble;
-	}
-
-
-
-
-
-	public HashMap<String, Plato> getPlatos() {
-		return platos;
-	}
-
-
-
-
-
-	public HashMap<String, Bebida> getBebidas() {
-		return bebidas;
-	}
-
 
 
 
@@ -405,7 +321,7 @@ public class CargardorArchivo {
 		listaFinal.add(tarifaSuite);
 		listaFinal.add(tarifaSuiteDoble);
 		listaFinal.add(tarifas);
-		
+	
 		
 		return listaFinal;
 	}
@@ -501,6 +417,89 @@ public class CargardorArchivo {
         }
         return date;
 }
+
+
+
+
+
+    
+    
 	
+	
+	
+	/*
+	 +habitaciones: ArrayList <HashMap<String(ID) , List<Habitaciones>>>
+	+precioSpa: int
+	+precioGuia: int
+	+tarifas: ArrayList<HasMap<String(dia del año), float (tarifa)>>
+	+menuRestaurante: ArrayList<HashMap>
+ */
+	
+	
+	
+	
+	
+	public HashMap<String, Servicio> getServicios() {
+		return servicios;
+	}
+
+
+
+
+
+	public HashMap<String, Cama> getCamas() {
+		return camas;
+	}
+
+
+
+
+
+	public HashMap<String, ArrayList<Habitacion>> getHabitacionesPorTipo() {
+		return habitacionesPorTipo;
+	}
+
+
+
+
+
+	public HashMap<Date, Float> getTarifaEstandar() {
+		return tarifaEstandar;
+	}
+
+
+
+
+
+	public HashMap<Date, Float> getTarifaSuite() {
+		return tarifaSuite;
+	}
+
+
+
+
+
+	public HashMap<Date, Float> getTarifaSuiteDoble() {
+		return tarifaSuiteDoble;
+	}
+
+
+
+
+
+	public HashMap<String, Plato> getPlatos() {
+		return platos;
+	}
+
+
+
+
+
+	public HashMap<String, Bebida> getBebidas() {
+		return bebidas;
+	}
+
+
+
 
 }
